@@ -1,0 +1,3 @@
+Point of Sales
+
+scan arbitrary products and apply volume pricing rules to the result.
