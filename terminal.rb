@@ -16,11 +16,10 @@ class Terminal
   end
 
   def scan(item_code = "")
-    'scan: ' + item_code.to_s
+    puts 'scan: ' + item_code.to_s
 
-    price = @order.add_item(item_code)
+    @order.add_item(item_code)
 
-    puts "scan:#{item_code}:price: #{price}" unless price.empty?
   end
 
   def total
