@@ -1,7 +1,7 @@
 module RecordSearch
-  VALID_SEARCH_FIELDS = %w(item_code)
+  VALID_SEARCH_FIELDS = %w(product_code)
   def validate_field(search_field = "")
-    VALIDSEARCHFIELDS.select { |x| x.downcase == search_field.downcase }.empty? ? false : true
+    VALID_SEARCH_FIELDS.select { |x| x.downcase == search_field.downcase }.empty? ? false : true
   end
 
   def search(search_space,search_field, query_field)
