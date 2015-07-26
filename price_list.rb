@@ -13,7 +13,7 @@ class PriceList
   end
 
   def get_item(item_code)
-    search(@pricing, item_code, "product_code")
+    search(@pricing, "product_code", item_code)
   end
 
   def price(item_code)
