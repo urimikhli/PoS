@@ -15,7 +15,7 @@ class Terminal
 
   #new list and new order
   def set_pricing(pricing_type="regular")
-    @price_list = PriceList.new(pricing_source(pricing_type).to_s)
+    @price_list = PriceList.new(pricing_source(pricing_type))
     @order = Order.new(@price_list)
     #price_list
   end
