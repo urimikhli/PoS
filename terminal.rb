@@ -6,7 +6,7 @@ class Terminal
     set_pricing # initialize as default, call set pricing to reassign: @order and @price_list = PriceList.new(some_file_name)
   end
 
-  def pricing_file(pricing_type="regular")
+  def pricing_source(pricing_type="regular")
     {
         regular: './data/price_list.json',
         holiday: './data/price_list.json'
@@ -15,7 +15,7 @@ class Terminal
 
   #new list and new order
   def set_pricing(pricing_type="regular")
-    @price_list = PriceList.new(pricing_file(pricing_type).to_s)
+    @price_list = PriceList.new(pricing_source(pricing_type).to_s)
     @order = Order.new(@price_list)
     #price_list
   end
