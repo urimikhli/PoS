@@ -5,7 +5,7 @@
     "discounts": [
       {
         "discount_point": 4,
-        "discount_price": 7.00
+        "discount_total": 7.00
       }
     ]
   },
@@ -20,7 +20,7 @@
     "discounts": [
       {
         "discount_point": 6,
-        "discount_price": 6.00
+        "discount_total": 6.00
       }
     ]
   },
