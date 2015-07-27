@@ -1,20 +1,26 @@
+====
 Point of Sales
 
+=====
 scan arbitrary products and apply volume pricing rules to the result.
-====
+
 
 There is a `Terminal` class which provides the api into the PoS system.
 
 The following calls are available:
 
-`
+``
 $> terminal = Terminal.new #instantiate with default pricing and a new Order
+
 $> terminal.set_pricing #will change the pricing model and create a new Order
+
 $> terminal.scan(<product code>) #add items to order
+
 $> terminal.total # calculate total based on pricing model , including discount pricing
+
 $> terminal.new_order # new order object
 
-`
+``
 
 To change the pricing model modify the data/price_list.json file. To add a file and use it (e.g. Holiday pricing) you have to add the appropraite path to a pricing .json file in the `pricing_source` method of the `Terminal` class.
 
@@ -29,6 +35,7 @@ e.g.
 
 `
 $> terminal = Terminal.new
+
 $> terminal.set_pricing("Holloween")
 
 run `ruby cash_register_test.rb` to test canned test cases.
