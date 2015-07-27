@@ -10,7 +10,7 @@ Scan these items in this order: ABCDABAA; Verify the total price is $32.40.
 
 terminal = Terminal.new
 
-terminal.set_pricing("regular")
+terminal.set_pricing("regular") #not strictly necessary, but used for illustration purposes
 
 puts "test one"
 terminal.scan("A")
