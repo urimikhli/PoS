@@ -31,4 +31,8 @@ class Terminal
     @order.total
   end
 
+  def new_order
+    @order = Order.new(@price_list)
+  end
+
 end
