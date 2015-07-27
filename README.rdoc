@@ -1,3 +1,9 @@
 Point of Sales
 
 scan arbitrary products and apply volume pricing rules to the result.
+
+There is a `Terminal` class which provides the api into teh PoS system.
+
+run `ruby cash_register_test.rb` to test
+
+see the details of cash_register_test.rb for details on how to instansiate and scan
