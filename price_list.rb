@@ -16,15 +16,12 @@ class PriceList
     search(@pricing, "product_code", item_code)
   end
 
-  def price(item_code)
-  end
+  def price(item_code = "")
+    return if item_code.empty?
+    product = @pricing.select{|x|x["product_code"].downcase.eql?(item_code.downcase)}
 
-  def discount_point
-    #
-  end
-
-  def discount_price
-    #
+    return if product.empty?
+    product.last["price"]
   end
 
   private
