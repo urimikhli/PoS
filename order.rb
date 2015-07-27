@@ -13,7 +13,7 @@ class Order
     unless item.empty?
       @order << item.last
     else
-      "NO ITEM FOUND"
+      puts "NO ITEM FOUND"
     end
   end
 
