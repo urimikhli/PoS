@@ -59,6 +59,59 @@ describe Terminal do
         expect(terminal.total).to equal 2.00
       end
     end
+
+    describe 'Volume pricing' do
+
+      context 'scanning ABCDABAA:' do
+        before do
+          terminal.scan("A")
+          terminal.scan("B")
+          terminal.scan("C")
+          terminal.scan("D")
+          terminal.scan("A")
+          terminal.scan("B")
+          terminal.scan("A")
+          terminal.scan("A")
+        end
+        it 'should not charge full price' do
+          expect(terminal.total).to_not equal 33.4
+        end
+
+        it 'should give volume discount' do
+          expect(terminal.total).to equal 32.40
+        end
+      end
+      context 'scanning CCCCCCC:' do
+        before do
+          terminal.scan("C")
+          terminal.scan("C")
+          terminal.scan("C")
+          terminal.scan("C")
+          terminal.scan("C")
+          terminal.scan("C")
+          terminal.scan("C")
+        end
+        it 'should not charge full price' do
+          expect(terminal.total).to_not equal 8.75
+        end
+
+        it 'should give volume discount' do
+          expect(terminal.total).to equal 7.25
+        end
+      end
+      context 'scanning ABCD:' do
+        before do
+          terminal.scan("A")
+          terminal.scan("B")
+          terminal.scan("C")
+          terminal.scan("D")
+        end
+        it 'should charge full price' do
+          expect(terminal.total).to equal 15.40
+        end
+      end
+
+    end
   end
 
   describe '.new_order' do
