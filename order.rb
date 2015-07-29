@@ -1,6 +1,7 @@
 require_relative 'price_list.rb'
 
 class Order
+  attr_reader :order
 
   def initialize(price_list)
     @order= []

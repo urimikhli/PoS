@@ -1,5 +1,6 @@
 require_relative 'order.rb'
 class Terminal
+  attr_reader :order, :price_list
 
   def initialize
     set_pricing # initialize as default, call set pricing to reassign: @order and @price_list = PriceList.new(some_file_name)
