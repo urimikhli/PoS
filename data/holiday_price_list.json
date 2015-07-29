@@ -1,0 +1,33 @@
+[
+  {
+    "product_code": "A",
+    "price": 3.00,
+    "discounts": [
+      {
+        "discount_point": 2,
+        "discount_total": 5.00
+      }
+    ]
+  },
+  {
+    "product_code": "B",
+    "price": 12.00,
+    "discounts": []
+  },
+  {
+    "product_code": "C",
+    "price": 1.25,
+    "discounts": [
+      {
+        "discount_point": 6,
+        "discount_total": 6.00
+      }
+    ]
+  },
+  {
+    "product_code": "D",
+    "price": 0.15,
+    "discounts": []
+  }
+
+]
