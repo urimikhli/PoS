@@ -6,11 +6,11 @@ class PriceList
   attr_reader :pricing
 
   def initialize(file_name = './data/price_list.json') #set default, but give chane to give diff file
-    @pricing = set_price_list(file_name.to_s)
+    set_price_list(file_name.to_s)
   end
 
   def set_price_list(file_name)
-    load_from_file(file_name)
+    @pricing = load_from_file(file_name)
   end
 
   def get_item(item_code)
