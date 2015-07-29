@@ -16,7 +16,7 @@ class Terminal
   def scan(item_code = "")
     @order.add_item(item_code)
 
-    puts 'scan: ' + item_code.to_s + ":price:" + @price_list.price(item_code).to_s
+    #puts 'scan: ' + item_code.to_s + ":price:" + @price_list.price(item_code).to_s
 
   end
 
