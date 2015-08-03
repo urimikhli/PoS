@@ -61,4 +61,15 @@ class Order
     end
   end
 
+  def get_line_item(product_code = '')
+    return if product_code.empty?
+
+    return if @order.empty?
+
+    product_items = @order.select {|x| x['product_code'].eql?(product_code)}
+    return if product_items.empty?
+
+    product_items.last
+  end
+
 end
