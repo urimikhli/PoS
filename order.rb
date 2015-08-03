@@ -1,4 +1,6 @@
 require_relative 'price_list.rb'
+require_relative 'line_item.rb'
+
 
 class Order
   include RecordSearch
@@ -13,7 +15,7 @@ class Order
     #
     item = @price_list.get_item(item_code)
     unless item.nil?
-      @order << item
+      @order << LineItem.new(item)
     else
       puts 'NO ITEM FOUND'
     end
@@ -35,16 +37,17 @@ class Order
     #
     total = 0
 
-    products = @order.map {|x| x['product_code']}.uniq
+    products = @order.map {|x| x.product_code}.uniq
 
     products.each do |product|
       line_items = get_line_items(product)
       quantity = line_items.count
-      price = line_items.first['price']
+      #price = line_items.first.price
 
-      discount = line_items.first['discounts']
+      #discount = line_items.first['discounts']
 
-      local_total = calculate_discount_pricing(discount, quantity, price)
+      #local_total = calculate_discount_pricing(discount, quantity, price)
+      local_total = line_items.first.calculate_discounted_total(quantity)
 
       total += local_total
     end
@@ -73,8 +76,8 @@ class Order
 
     return if @order.empty?
 
-    #product_items = @order.select {|x| x['product_code'].eql?(product_code)}
-    product_items = search(@order, "product_code", product_code)
+    product_items = @order.select {|x| x.product_code.eql?(product_code)}
+    #product_items = search(@order, "product_code", product_code)
     return if product_items.empty?
 
     product_items

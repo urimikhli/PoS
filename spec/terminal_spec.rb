@@ -68,10 +68,10 @@ describe Terminal do
           expect(terminal.order.order.count).to equal 3
         end
         it 'first item should still be A ' do
-          expect(terminal.order.order.first['product_code']).to eq 'A'
+          expect(terminal.order.order.first.product_code).to eq 'A'
         end
         it 'and last item should still be B' do
-          expect(terminal.order.order.last['product_code']).to eq 'B'
+          expect(terminal.order.order.last.product_code).to eq 'B'
         end
       end
       context 'deleting an invalid item' do

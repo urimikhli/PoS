@@ -18,7 +18,7 @@ describe Order do
         expect(order.order.count).to equal 1
       end
       it 'should have item code A' do
-        expect(order.order.first['product_code']).to eq 'A'
+        expect(order.order.first.product_code).to eq 'A'
       end
     end
 
@@ -56,10 +56,10 @@ describe Order do
           expect(order.order.count).to equal 3
         end
         it 'first item should still be A ' do
-          expect(order.order.first['product_code']).to eq 'A'
+          expect(order.order.first.product_code).to eq 'A'
         end
         it 'and last item should still be B' do
-          expect(order.order.last['product_code']).to eq 'B'
+          expect(order.order.last.product_code).to eq 'B'
         end
       end
       context 'deleting an invalid item' do

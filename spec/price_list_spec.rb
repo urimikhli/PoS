@@ -27,7 +27,7 @@ describe PriceList do
     it { is_expected.to respond_to :get_item }
 
     it 'should return the requested item hash ' do
-      expect(price_list.get_item("A").first).to equal price_list.pricing.first
+      expect(price_list.get_item("A")).to equal price_list.pricing.first
     end
   end
 
