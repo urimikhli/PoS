@@ -5,6 +5,29 @@ describe Order do
   let(:order) { Order.new(price_list) }
   subject {order}
 
+  describe '.line_item' do
+    it { is_expected.to respond_to :line_item }
+
+    it 'should return nil when not found' do
+      expect(order.line_item('A')).to be_nil
+    end
+
+    context 'return the line item if it is found' do
+      before do
+        order.add_item('A')
+      end
+
+      it 'should return a line item' do
+        expect(order.line_item('A').class).to eq LineItem
+      end
+
+      it 'should return the line item we want' do
+        expect(order.line_item('A').product_code).to eq 'A'
+      end
+    end
+
+  end
+
   describe '.add_item' do
     it { is_expected.to respond_to :add_item }
     it 'should add an item hash to order array' do
@@ -44,30 +67,42 @@ describe Order do
 
       end
 
-      it 'should have 4 items ABAB' do
-        expect(order.order.count).to equal 4
+      it 'should have 2 items A and B with quantity 2 each' do
+        expect(order.order.count).to equal 2
+        expect(order.line_item('A').quantity).to equal 2
+        expect(order.line_item('B').quantity).to equal 2
       end
 
       context 'deleting a valid item A' do
         before do
           order.delete_item('A')
         end
-        it 'should have 3 orders ABB' do
-          expect(order.order.count).to equal 3
+        it 'should still have 2 line items A and B' do
+          expect(order.order.count).to equal 2
         end
-        it 'first item should still be A ' do
-          expect(order.order.first.product_code).to eq 'A'
+        it 'first (A) should have one less quantity ' do
+          expect(order.order.first.quantity).to equal 1
         end
-        it 'and last item should still be B' do
-          expect(order.order.last.product_code).to eq 'B'
+        it 'last (B) should still have two quantity ' do
+          expect(order.order.last.quantity).to equal 2
         end
       end
+
       context 'deleting an invalid item' do
         before do
           order.delete_item('Z')
         end
-        it 'should still have the same number of orders' do
-          expect(order.order.count).to equal 4
+        it 'should still have the same number of line_items' do
+          expect(order.order.count).to equal 2
+        end
+        it 'should still have both A and B' do
+          expect(order.line_item('A').product_code).to eq 'A'
+          expect(order.line_item('B').product_code).to eq 'B'
+        end
+
+        it 'A and B should both be same quantity' do
+          expect(order.line_item('A').quantity).to equal 2
+          expect(order.line_item('B').quantity).to equal 2
         end
       end
     end
