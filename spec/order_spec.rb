@@ -31,6 +31,48 @@ describe Order do
       end
     end
   end
+
+  describe '.delete_item' do
+    it { is_expected.to respond_to :delete_item }
+
+    describe 'deleting A from ABAB should result in ABB' do
+      before do
+        order.add_item('A')
+        order.add_item('B')
+        order.add_item('A')
+        order.add_item('B')
+
+      end
+
+      it 'should have 4 items ABAB' do
+        expect(order.order.count).to equal 4
+      end
+
+      context 'deleting a valid item A' do
+        before do
+          order.delete_item('A')
+        end
+        it 'should have 3 orders ABB' do
+          expect(order.order.count).to equal 3
+        end
+        it 'first item should still be A ' do
+          expect(order.order.first['product_code']).to eq 'A'
+        end
+        it 'and last item should still be B' do
+          expect(order.order.last['product_code']).to eq 'B'
+        end
+      end
+      context 'deleting an invalid item' do
+        before do
+          order.delete_item('Z')
+        end
+        it 'should still have the same number of orders' do
+          expect(order.order.count).to equal 4
+        end
+      end
+    end
+  end
+
   describe '.total' do
     it { is_expected.to respond_to :total }
     it 'should start with a total of' do
