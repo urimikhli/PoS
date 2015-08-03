@@ -7,16 +7,19 @@ class Terminal
   end
 
   #new list and new order
-  def set_pricing(pricing_type="regular")
+  def set_pricing(pricing_type='regular')
     @price_list = PriceList.new(pricing_source(pricing_type))
     @order = Order.new(@price_list)
     #price_list
   end
 
-  def scan(item_code = "")
+  def scan(item_code = '')
     @order.add_item(item_code)
 
-    #puts 'scan: ' + item_code.to_s + ":price:" + @price_list.price(item_code).to_s
+    #puts 'scan: ' + item_code.to_s + ':price:' + @price_list.price(item_code).to_s
+
+  end
+
 
   end
 
@@ -30,7 +33,7 @@ class Terminal
 
   private
 
-  def pricing_source(pricing_type="regular")
+  def pricing_source(pricing_type='regular')
     {
         regular: './data/price_list.json',
         holiday: './data/holiday_price_list.json'
