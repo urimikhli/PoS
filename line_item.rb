@@ -1,6 +1,24 @@
 class LineItem
   def initialize(item_hash = {})
     @line_item = item_hash
+    increment_quantity
+  end
+
+  def increment_quantity
+    if @line_item['quantity'].nil?
+      @line_item['quantity'] = 0
+    end
+
+    @line_item['quantity'] += 1
+  end
+
+  def decrement_quantity
+    return if @line_item['quantity'].nil?
+    @line_item['quantity'] -= 1
+  end
+
+  def quantity
+    @line_item['quantity']
   end
 
   def price
@@ -21,10 +39,7 @@ class LineItem
     @line_item['discounts'].last['discount_point']
   end
 
-  def calculate_discounted_total(quantity)
-    discount_point = self.discount_point
-    price = self.price
-    discount_total = self.discount_total
+  def calculate_discounted_total(quantity, price, discount_point, discount_total)
 
     return price * quantity if discount_point.nil?
 
