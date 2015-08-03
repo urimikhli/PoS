@@ -31,7 +31,6 @@ class Order
     products = @order.map {|x| x['product_code']}.uniq
 
     products.each do |product|
-      local_total = 0
       line_items = @order.select{|x|x['product_code'].eql?(product)}
       quantity = line_items.count
       price = line_items.first['price']
