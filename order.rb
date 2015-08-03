@@ -18,6 +18,12 @@ class Order
     end
   end
 
+  def delete_item(item_code)
+    line_item = get_line_item(item_code)
+    return if line_item.nil?
+    @order.delete_at(@order.rindex line_item)
+  end
+
   def total
     order_total ||= get_order_total
   end

@@ -20,7 +20,8 @@ class Terminal
 
   end
 
-
+  def remove(item_code = '')
+    @order.delete_item(item_code)
   end
 
   def total
