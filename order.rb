@@ -14,17 +14,30 @@ class Order
   def add_item(item_code)
     #
     item = @price_list.get_item(item_code)
+
     unless item.nil?
-      @order << LineItem.new(item)
+      line_item = get_line_item(item_code)
+      if line_item.nil?
+        @order << LineItem.new(item)
+      else
+        line_item.increment_quantity
+      end
     else
       puts 'NO ITEM FOUND'
     end
   end
 
   def delete_item(item_code)
-    line_items = get_line_items(item_code)
-    return if line_items.nil?
-    @order.delete_at(@order.rindex line_items.last)
+    line_item = get_line_item(item_code)
+    return if line_item.nil?
+    return if line_item.quantity.nil?
+
+    line_item.decrement_quantity
+    @order.delete line_item if line_item.quantity == 0
+  end
+
+  def line_item(item_code)
+    get_line_item(item_code)
   end
 
   def total
@@ -71,16 +84,13 @@ class Order
     end
   end
 
-  def get_line_items(product_code = '')
+  def get_line_item(product_code = '')
     return if product_code.empty?
 
     return if @order.empty?
 
-    product_items = @order.select {|x| x.product_code.eql?(product_code)}
-    #product_items = search(@order, "product_code", product_code)
-    return if product_items.empty?
-
-    product_items
+    #lookup grep for this
+    @order.select {|x| x.product_code.eql?(product_code)}.last
   end
 
 end
