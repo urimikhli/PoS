@@ -12,8 +12,8 @@ class Order
   def add_item(item_code)
     #
     item = @price_list.get_item(item_code)
-    unless item.empty?
-      @order << item.last
+    unless item.nil?
+      @order << item
     else
       puts 'NO ITEM FOUND'
     end
