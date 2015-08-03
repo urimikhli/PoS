@@ -14,7 +14,7 @@ class Order
     unless item.empty?
       @order << item.last
     else
-      puts "NO ITEM FOUND"
+      puts 'NO ITEM FOUND'
     end
   end
 
@@ -28,15 +28,15 @@ class Order
     #
     total = 0
 
-    products = @order.map {|x| x["product_code"]}.uniq
+    products = @order.map {|x| x['product_code']}.uniq
 
     products.each do |product|
       local_total = 0
-      line_items = @order.select{|x|x["product_code"].eql?(product)}
+      line_items = @order.select{|x|x['product_code'].eql?(product)}
       quantity = line_items.count
-      price = line_items.first["price"]
+      price = line_items.first['price']
 
-      discount = line_items.first["discounts"]
+      discount = line_items.first['discounts']
 
       local_total = calculate_discount_pricing(discount, quantity, price)
 
@@ -48,17 +48,17 @@ class Order
 
   def calculate_discount_pricing(discount, quantity, price)
     return price * quantity if discount.empty?
-    discount_point =  discount.last["discount_point"].to_i
+    discount_point =  discount.last['discount_point'].to_i
     remainder = quantity % discount_point
 
     if quantity < discount_point
       price * quantity  #regular price
     elsif discount_point == quantity
       #apply discount
-      discount.last["discount_total"]
+      discount.last['discount_total']
     else
       times_discount_applied = (quantity - remainder) / discount_point#e.g.  17%3 -- qty:17 discount_point:3 -- remainder:2 --> (17 -2) / 3 =  5 times the discount was applied
-      discount.last["discount_total"] * times_discount_applied  +  ( price * remainder )   #too simple for recursion: calculate_discount(discount, remainder, price)
+      discount.last['discount_total'] * times_discount_applied  +  ( price * remainder )   #too simple for recursion: calculate_discount(discount, remainder, price)
     end
   end
 
