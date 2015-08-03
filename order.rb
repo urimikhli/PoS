@@ -11,12 +11,16 @@ class Order
     @price_list ||= price_list
   end
 
+  def line_item(item_code)
+    get_line_item(item_code)
+  end
+
   def add_item(item_code)
     #
     item = @price_list.get_item(item_code)
 
     unless item.nil?
-      line_item = get_line_item(item_code)
+      line_item = self.line_item(item_code)
       if line_item.nil?
         @order << LineItem.new(item)
       else
@@ -28,16 +32,12 @@ class Order
   end
 
   def delete_item(item_code)
-    line_item = get_line_item(item_code)
+    line_item = self.line_item(item_code)
     return if line_item.nil?
     return if line_item.quantity.nil?
 
     line_item.decrement_quantity
     @order.delete line_item if line_item.quantity == 0
-  end
-
-  def line_item(item_code)
-    get_line_item(item_code)
   end
 
   def total
@@ -53,17 +53,10 @@ class Order
     #products = @order.map {|x| x.product_code}.uniq
 
     @order.each do |line_item|
-      #line_items = get_line_items(line_item)
-      #quantity = line_items.count
       quantity = line_item.quantity
       discount_point = line_item.discount_point
       price = line_item.price
       discount_total = line_item.discount_total
-      #price = line_items.first.price
-
-      #discount = line_items.first['discounts']
-
-      #local_total = calculate_discount_pricing(discount, quantity, price)
 
       total += line_item.calculate_discounted_total(quantity, price, discount_point, discount_total)
     end
