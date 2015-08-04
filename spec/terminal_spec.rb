@@ -56,30 +56,34 @@ describe Terminal do
 
       end
 
-      it 'should have 4 items ABAB' do
-        expect(terminal.order.order.count).to equal 4
+      it 'should have 2 items AB' do
+        expect(terminal.order.order.count).to equal 2
       end
 
       context 'deleting a valid item A' do
         before do
           terminal.remove('A')
         end
-        it 'should have 3 orders ABB' do
-          expect(terminal.order.order.count).to equal 3
+        it 'should still have 2 orders ABB' do
+          expect(terminal.order.order.count).to equal 2
         end
-        it 'first item should still be A ' do
-          expect(terminal.order.order.first.product_code).to eq 'A'
+        it 'first item should still be A and have a quantity of 1' do
+          expect(terminal.order.order.first.quantity).to equal 1
         end
-        it 'and last item should still be B' do
-          expect(terminal.order.order.last.product_code).to eq 'B'
+        it 'and last item should still be B and have a quantity of 2' do
+          expect(terminal.order.order.last.quantity).to equal 2
         end
       end
       context 'deleting an invalid item' do
         before do
           terminal.remove('Z')
         end
-        it 'should still have the same number of orders' do
-          expect(terminal.order.order.count).to equal 4
+        it 'should still have the same number of line items' do
+          expect(terminal.order.order.count).to equal 2
+        end
+        it 'should still have the same quantity for A and B ' do
+          expect(terminal.order.line_item('A').quantity).to equal 2
+          expect(terminal.order.line_item('B').quantity).to equal 2
         end
       end
     end
