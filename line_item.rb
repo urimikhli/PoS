@@ -1,4 +1,5 @@
 class LineItem
+  attr_reader :line_item
   def initialize(item_hash = {})
     @line_item = item_hash
     increment_quantity
