@@ -86,6 +86,17 @@ describe Order do
         it 'last (B) should still have two quantity ' do
           expect(order.order.last.quantity).to equal 2
         end
+        context 'deleting to quantity 0 removes the line item from order' do
+          before do
+            order.delete_item('A')
+          end
+          it 'first line item should now be B ' do
+            expect(order.order.first.product_code).to eq 'B'
+          end
+          it ' (A) should no longer be in order ' do
+            expect(order.line_item('A')).to be nil
+          end
+        end
       end
 
       context 'deleting an invalid item' do
