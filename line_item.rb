@@ -15,6 +15,7 @@ class LineItem
 
   def decrement_quantity
     return if @line_item['quantity'].nil?
+    return if @line_item['quantity'] == 0 # no negative quantities
     @line_item['quantity'] -= 1
   end
 
