@@ -47,7 +47,22 @@ describe 'LineItem' do
       it 'should have a quantity of 1' do
         expect(line_item.line_item['quantity']).to equal 1
       end
-
+      context 'decrementing to 0 should set quantity to 0' do
+        before do
+          line_item.decrement_quantity
+        end
+        it 'should have a quantity of 0' do
+          expect(line_item.line_item['quantity']).to equal 0
+        end
+        context 'decrementing below 0 should not change quantity' do
+          before do
+            line_item.decrement_quantity
+          end
+          it 'should have a quantity of 0' do
+            expect(line_item.line_item['quantity']).to equal 0
+          end
+        end
+      end
     end
   end
 end
