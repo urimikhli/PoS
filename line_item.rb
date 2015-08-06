@@ -6,21 +6,21 @@ class LineItem
   end
 
   def increment_quantity
-    if @line_item['quantity'].nil?
-      @line_item['quantity'] = 0
+    if @line_item[:quantity].nil?
+      @line_item[:quantity] = 0
     end
 
-    @line_item['quantity'] += 1
+    @line_item[:quantity] += 1
   end
 
   def decrement_quantity
-    return if @line_item['quantity'].nil?
-    return if @line_item['quantity'] == 0 # no negative quantities
-    @line_item['quantity'] -= 1
+    return if @line_item[:quantity].nil?
+    return if @line_item[:quantity] == 0 # no negative quantities
+    @line_item[:quantity] -= 1
   end
 
   def quantity
-    @line_item['quantity']
+    @line_item[:quantity]
   end
 
   def price
