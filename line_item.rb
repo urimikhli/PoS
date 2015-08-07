@@ -41,6 +41,11 @@ class LineItem
     @line_item['discounts'].last['discount_point']
   end
 
+  def item_total
+    calculate_total_with_discounts(self.quantity, self.price, self.discount_point, self.discount_total)
+  end
+  private
+
   def calculate_total_with_discounts(quantity, price, discount_point, discount_total)
 
     return price * quantity if discount_point.nil?

@@ -53,12 +53,7 @@ class Order
     #products = @order.map {|x| x.product_code}.uniq
 
     @order.each do |line_item|
-      quantity = line_item.quantity
-      discount_point = line_item.discount_point
-      price = line_item.price
-      discount_total = line_item.discount_total
-
-      total += line_item.calculate_total_with_discounts(quantity, price, discount_point, discount_total)
+      total += line_item.item_total
     end
 
     total
