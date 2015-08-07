@@ -58,26 +58,10 @@ class Order
       price = line_item.price
       discount_total = line_item.discount_total
 
-      total += line_item.calculate_discounted_total(quantity, price, discount_point, discount_total)
+      total += line_item.calculate_total_with_discounts(quantity, price, discount_point, discount_total)
     end
 
     total
-  end
-
-  def calculate_discount_pricing(discount, quantity, price)
-    return price * quantity if discount.empty?
-    discount_point =  discount.last[:discount_point].to_i
-    remainder = quantity % discount_point
-
-    if quantity < discount_point
-      price * quantity  #regular price
-    elsif discount_point == quantity
-      #apply discount
-      discount.last[:discount_total]
-    else
-      times_discount_applied = (quantity - remainder) / discount_point#e.g.  17%3 -- qty:17 discount_point:3 -- remainder:2 --> (17 -2) / 3 =  5 times the discount was applied
-      discount.last[:discount_total] * times_discount_applied  +  ( price * remainder )   #too simple for recursion: calculate_discount(discount, remainder, price)
-    end
   end
 
   def get_line_item(product_code = '')
