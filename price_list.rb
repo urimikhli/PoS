@@ -5,12 +5,12 @@ class PriceList
   include RecordSearch
   attr_reader :pricing
 
-  def initialize(file_name = './data/price_list.json') #set default, but give chane to give diff file
-    set_price_list(file_name.to_s)
+  def initialize #set default, but give chane to give diff file
+    set_price_list
   end
 
-  def set_price_list(file_name)
-    @pricing = load_from_file(file_name)
+  def set_price_list(pricing_type = 'regular')
+    @pricing = load_from_file(pricing_source(pricing_type))
   end
 
   def get_item(item_code)
@@ -30,4 +30,12 @@ class PriceList
   def load_from_file(file_name)
     JSON.parse(IO.read(file_name))
   end
+
+  def pricing_source(pricing_type = 'regular')
+    {
+        regular: './data/price_list.json',
+        holiday: './data/holiday_price_list.json'
+    }[pricing_type.to_sym]
+  end
+
 end

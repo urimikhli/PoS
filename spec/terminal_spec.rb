@@ -19,11 +19,16 @@ describe Terminal do
     end
     context 'Changing the pricing model ' do
       before do
+        terminal.scan('A')
         terminal.set_pricing('holiday')
       end
 
       it 'should have a different price' do
         expect(terminal.price_list.price("A")).to equal 3.00
+      end
+
+      it 'should have a brand new order' do
+        expect(terminal.order.order.size).to equal 0
       end
     end
 

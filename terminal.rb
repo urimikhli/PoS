@@ -3,12 +3,13 @@ class Terminal
   attr_reader :order, :price_list
 
   def initialize
-    set_pricing # initialize as default, call set pricing to reassign: @order and @price_list = PriceList.new(some_file_name)
+    @price_list = PriceList.new
+    @order = Order.new(@price_list)
   end
 
   #new list and new order
   def set_pricing(pricing_type='regular')
-    @price_list = PriceList.new(pricing_source(pricing_type))
+    @price_list.set_price_list(pricing_type)
     @order = Order.new(@price_list)
     #price_list
   end
@@ -30,15 +31,6 @@ class Terminal
 
   def new_order
     @order = Order.new(@price_list)
-  end
-
-  private
-
-  def pricing_source(pricing_type='regular')
-    {
-        regular: './data/price_list.json',
-        holiday: './data/holiday_price_list.json'
-    }[pricing_type.to_sym]
   end
 
 end

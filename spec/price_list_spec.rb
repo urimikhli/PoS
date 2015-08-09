@@ -3,18 +3,20 @@ require './price_list'
 describe PriceList do
 
   let(:price_list) { PriceList.new }
+
   it 'should have pricing model' do
     expect(price_list.pricing.first.keys.first).to eq "product_code"
   end
 
   describe '.set_price_list' do
     it { is_expected.to respond_to :set_price_list }
+
     it 'should use regular pricing' do
       expect(price_list.pricing.first["price"]).to equal 2.00
     end
     context 'Calling set_price_list to Change the pricing model ' do
       before do
-        price_list.set_price_list('./data/holiday_price_list.json')
+        price_list.set_price_list('holiday')
       end
 
       it 'should have a different price ' do
