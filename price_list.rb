@@ -24,14 +24,6 @@ class PriceList
     search(@pricing, 'class', "product_code", product_code).first
   end
 
-  def price(item_code = '')
-    return if item_code.empty?
-    product = get_product(product_code)
-
-    return if product.empty?
-    product.last['price']
-  end
-
   private
 
   def load_price_list(pricing_type = 'regular')

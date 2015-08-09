@@ -45,12 +45,4 @@ describe PriceList do
     end
   end
 
-  describe '.price' do
-    it { is_expected.to respond_to :price }
-
-    it 'should return the requested item price ' do
-      expect(price_list.price('A')).to equal price_list.pricing.first['price']
-    end
-  end
-
 end
