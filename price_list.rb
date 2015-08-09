@@ -17,12 +17,12 @@ class PriceList
     search(@pricing, "product_code", item_code).first
   end
 
-  def price(item_code = "")
+  def price(item_code = '')
     return if item_code.empty?
     product = @pricing.select{|x|x["product_code"].downcase.eql?(item_code.downcase)}
 
     return if product.empty?
-    product.last["price"]
+    product.last['price']
   end
 
   private

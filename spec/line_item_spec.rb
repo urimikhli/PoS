@@ -1,7 +1,7 @@
 require 'rspec'
 require './line_item'
 
-describe 'LineItem' do
+describe LineItem do
   let (:no_discount_item_hash) {
     {
         'product_code'=> 'B',
