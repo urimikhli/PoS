@@ -6,6 +6,7 @@ class PriceList
   attr_reader :pricing
 
   def initialize #set default, but give chane to give diff file
+    @pricing = []
     set_price_list
   end
 
