@@ -10,7 +10,7 @@ class PriceList
   end
 
   def set_price_list(pricing_type = 'regular')
-    @pricing = load_from_file(pricing_source(pricing_type))
+    load_price_list(pricing_type = 'regular')
   end
 
   def get_item(item_code)
@@ -26,6 +26,12 @@ class PriceList
   end
 
   private
+
+  def load_price_list(pricing_type = 'regular')
+    load_from_file(pricing_source(pricing_type)).each do |product|
+      @pricing.push Product.new(product) unless product.empty?
+    end
+  end
 
   def load_from_file(file_name)
     JSON.parse(IO.read(file_name))
