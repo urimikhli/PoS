@@ -1,17 +1,20 @@
 require 'rspec'
 require './line_item'
+require './product'
 
 describe LineItem do
-  let (:no_discount_item_hash) {
+  let (:no_discount_product) {
+    Product.new (
     {
         'product_code'=> 'B',
         'price'=> 12.00,
         'discounts'=> []
-    }
+    } )
 
   }
 
-  let(:item_hash) {
+  let(:product) {
+    Product.new (
     {
         'product_code'=> 'A',
         'price'=> 2.00,
@@ -21,10 +24,10 @@ describe LineItem do
                 'discount_total'=> 7.00
             }
         ]
-    }
+    } )
   }
-  let(:line_item_no_discount) {LineItem.new(no_discount_item_hash)}
-  let(:line_item) {LineItem.new(item_hash)}
+  let(:line_item_no_discount) {LineItem.new(no_discount_product)}
+  let(:line_item) {LineItem.new(product)}
   subject {line_item}
 
   it 'should have a quantity of 1' do
