@@ -34,11 +34,14 @@ describe PriceList do
     end
   end
 
-  describe '.get_item' do
+  describe '.get_product' do
     it { is_expected.to respond_to :get_item }
 
-    it 'should return the requested item hash ' do
-      expect(price_list.get_item("A")).to equal price_list.pricing.first
+    it 'should return the requested product ' do
+      expect(price_list.get_product('A')).to equal price_list.pricing.first
+    end
+    it 'should return empty array if product is not in pricing ' do
+      expect(price_list.get_product('Z')).to be_nil
     end
   end
 
