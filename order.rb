@@ -15,14 +15,14 @@ class Order
     get_line_item(item_code)
   end
 
-  def add_item(item_code)
+  def add_item(product_code)
     #
-    item = @price_list.get_item(item_code)
+    product = @price_list.get_product(product_code)
 
-    unless item.nil?
-      line_item = self.line_item(item_code)
+    unless product.nil?
+      line_item = self.line_item(product_code)
       if line_item.nil?
-        @order << LineItem.new(item)
+        @order << LineItem.new(product)
       else
         line_item.increment_quantity
       end
