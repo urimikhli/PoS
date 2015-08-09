@@ -128,6 +128,86 @@ describe 'LineItem' do
     end
   end
 
+  describe '.item_total' do
+    it { is_expected.to respond_to :item_total }
+
+    it 'should total the price of A $2.00' do
+      expect(line_item.item_total).to equal 2.00
+    end
+
+    describe 'Volume pricing for items that have discounts defined' do
+
+      context 'adding quantity' do
+        before do
+          line_item.increment_quantity
+          line_item.increment_quantity
+        end
+
+        it 'should charge full price' do
+          expect(line_item.item_total).to equal 6.00
+        end
+
+        context 'hitting the discount point' do
+          before do
+            line_item.increment_quantity
+          end
+
+          it 'should not charge full price' do
+            expect(line_item.item_total).to_not equal 8.00
+          end
+
+          it 'should give volume discount (pack price)' do
+            expect(line_item.item_total).to equal 7.00
+          end
+
+          context 'adding items past discount point (pack) should be totaled at full price' do
+            before do
+              line_item.increment_quantity
+              line_item.increment_quantity
+              line_item.increment_quantity
+            end
+
+            it 'should charge full price for items past the discount point' do
+              expect(line_item.item_total).to_not equal 12.25
+            end
+
+            it 'should should give discount to items at the discount point(pack) and full price for those that dont' do
+              expect(line_item.item_total).to equal 13.00
+            end
+
+            context 'Hitting the pack point again' do
+              before do
+                line_item.increment_quantity
+              end
+
+              it 'should not charge full price' do
+                expect(line_item.item_total).to_not equal 16.00
+              end
+
+              it 'should give volume discount (pack price)' do
+                expect(line_item.item_total).to equal 14.00
+              end
+            end
+          end
+        end
+      end
+
+    end
+    describe 'No volume pricing for items that have no discount point defined' do
+      context 'adding quantity:' do
+        before do
+          line_item_no_discount.increment_quantity
+          line_item_no_discount.increment_quantity
+        end
+        it 'should charge full price' do
+          expect(line_item_no_discount.item_total).to equal 36.00
+          expect(line_item_no_discount.discount_point).to be_nil
+        end
+
+      end
+    end
+
+  end
 
 
 end
