@@ -1,5 +1,7 @@
 require 'json'
 require_relative 'record_search.rb'
+require_relative 'product.rb'
+
 
 class PriceList
   include RecordSearch
@@ -11,7 +13,7 @@ class PriceList
   end
 
   def set_price_list(pricing_type = 'regular')
-    load_price_list(pricing_type = 'regular')
+    load_price_list(pricing_type)
   end
 
   def get_item(item_code)
@@ -29,6 +31,8 @@ class PriceList
   private
 
   def load_price_list(pricing_type = 'regular')
+    return if pricing_source(pricing_type).empty?
+    @pricing = []
     load_from_file(pricing_source(pricing_type)).each do |product|
       @pricing.push Product.new(product) unless product.empty?
     end
