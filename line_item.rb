@@ -1,7 +1,7 @@
 class LineItem
   attr_reader :line_item
-  def initialize(item_hash = {})
-    @line_item = item_hash
+  def initialize(product)
+    @line_item = { product: product }
     increment_quantity
   end
 
@@ -24,21 +24,21 @@ class LineItem
   end
 
   def price
-    @line_item['price']
+    @line_item[:product].price
   end
 
   def product_code
-    @line_item['product_code']
+    @line_item[:product].product_code
   end
 
   def discount_total
-    return if @line_item['discounts'].empty?
-    @line_item['discounts'].last['discount_total']
+    return if @line_item[:product].discount_total.nil?
+    @line_item[:product].discount_total
   end
 
   def discount_point
-    return if @line_item['discounts'].empty?
-    @line_item['discounts'].last['discount_point']
+    return if @line_item[:product].discount_point.nil?
+    @line_item[:product].discount_point
   end
 
   def item_total
