@@ -17,12 +17,16 @@ class PriceList
   end
 
   def get_item(item_code)
-    search(@pricing, "product_code", item_code).first
+    search(@pricing, 'hash', "product_code", item_code).first
+  end
+
+  def get_product(product_code)
+    search(@pricing, 'class', "product_code", product_code).first
   end
 
   def price(item_code = '')
     return if item_code.empty?
-    product = @pricing.select{|x|x["product_code"].downcase.eql?(item_code.downcase)}
+    product = get_product(product_code)
 
     return if product.empty?
     product.last['price']
