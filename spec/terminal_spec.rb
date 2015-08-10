@@ -15,7 +15,7 @@ describe Terminal do
 
     it { is_expected.to respond_to :set_pricing }
     it 'should use regular pricing' do
-      expect(terminal.price_list.price("A")).to equal 2.00
+      expect(terminal.price_list.get_product('A').price).to equal 2.00
     end
     context 'Changing the pricing model ' do
       before do
@@ -24,7 +24,7 @@ describe Terminal do
       end
 
       it 'should have a different price' do
-        expect(terminal.price_list.price("A")).to equal 3.00
+        expect(terminal.price_list.get_product('A').price).to equal 3.00
       end
 
       it 'should have a brand new order' do
