@@ -48,6 +48,14 @@ describe Terminal do
         expect(terminal.order.order.count).to equal 1
       end
     end
+    context 'adding an invalid item' do
+      before do
+        terminal.scan('Z')
+      end
+      it 'should still have an order count of 0' do
+        expect(terminal.order.order.count).to equal 0
+      end
+    end
   end
 
   describe '.remove' do
