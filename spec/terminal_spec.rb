@@ -56,6 +56,24 @@ describe Terminal do
         expect(terminal.order.order.count).to equal 0
       end
     end
+
+    describe 'respond with hash' do
+      let (:response) { {} }
+      context 'when adding a first item' do
+        before do
+          response.merge! terminal.scan('A')
+        end
+
+        it 'should return a hash with a before field that is nil' do
+          expect( response[:before]).to be_nil
+        end
+        it 'should return a hash with an after field that is an Array' do
+          expect( response[:after].class).to eq Array
+        end
+        context 'adding another item  '
+      end
+    end
+
   end
 
   describe '.remove' do

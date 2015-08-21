@@ -15,10 +15,17 @@ class Terminal
   end
 
   def scan(item_code = '')
-    @order.add_item(item_code)
+    old_order_items = @order.order
+    status = @order.add_item(item_code)
 
     #puts 'scan: ' + item_code.to_s + ':price:' + @price_list.price(item_code).to_s
 
+
+    {
+        before: old_order_items,
+        after: @order.order
+        #status: status
+    }
   end
 
   def remove(item_code = '')
