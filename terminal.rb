@@ -15,15 +15,12 @@ class Terminal
   end
 
   def scan(item_code = '')
-    old_order_items = @order.order
+    old_order_items = self.order.order.clone
     status = @order.add_item(item_code)
-
-    #puts 'scan: ' + item_code.to_s + ':price:' + @price_list.price(item_code).to_s
-
 
     {
         before: old_order_items,
-        after: @order.order
+        after: self.order.order
         #status: status
     }
   end

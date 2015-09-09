@@ -64,13 +64,28 @@ describe Terminal do
           response.merge! terminal.scan('A')
         end
 
-        it 'should return a hash with a before field that is nil' do
-          expect( response[:before]).to be_nil
+        it 'should return a hash with a before field that is empty' do
+          expect( response[:before].class).to eq Array
+          expect( response[:before].count).to equal 0
         end
-        it 'should return a hash with an after field that is an Array' do
+        it 'should return a hash with an after field that is not empty' do
           expect( response[:after].class).to eq Array
+          expect( response[:after].count).to equal 1
         end
-        context 'adding another item  '
+        context 'adding another item  ' do
+	  before do
+            response.merge! terminal.scan('B')
+	  end
+	  it 'should respond with only the original line item in the before' do
+	    expect(response[:before].count).to equal 1
+	    expect(response[:before].first.product_code).to eq 'A'
+	  end
+	  it 'should respond with the original and the new line item in the after field' do
+	    expect(response[:after].count).to equal 2
+	    expect(response[:after].first.product_code).to eq 'A'
+	    expect(response[:after].last.product_code).to eq 'B'
+	  end
+	end
       end
     end
 
